@@ -4,22 +4,34 @@ require_relative '../helper/jira_issue_details_helper'
 
 module Fastlane
   module Actions
-    class GetJiraIssue < Action
+    class GetJiraIssueAction < Action
       def self.run(params)
-        return nil if params[:username].nil? || params[:api_token].nil? || params[:site].nil?
+        site = ENV['JIRA_ISSUE_DETAILS_SITE'] 
+        username = ENV['JIRA_ISSUE_DETAILS_USERNAME'] 
+        api_token = ENV['JIRA_ISSUE_DETAILS_API_TOKEN']
+        issue_key = ENV['JIRA_ISSUE_DETAILS_ISSUE_KEY']
+
+        if params && params[:site] && params[:username] && params[:api_token] && params[:issue_key]
+          site = params[:site]
+          username = params[:username]
+          api_token = params[:api_token]
+          issue_key = params[:issue_key]
+        end
+
+        return nil if site.nil? && username.nil? && api_token.nil? && issue_key.nil?
 
         options = {
-          username: params[:username],
-          password: params[:api_token],
+          username: username,
+          password: api_token,
           context_path: "",
           auth_type: :basic,
-          site: "#{params[:site]}:443/",
+          site: "#{site}:443/",
           rest_base_path: "/rest/api/3"
         }
         client = JIRA::Client.new(options)
 
         begin
-          return client.Issue.find(FastlaneCore::ConfigItem[:issue_key]).attrs
+          return client.Issue.find(issue_key).attrs
         rescue
           return nil
         end
@@ -34,12 +46,10 @@ module Fastlane
       end
 
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
         "Return a `Hash` containing the details of the jira issue for the given key, or `nil` if the issue key does not exists."
       end
 
       def self.details
-        # Optional:
         "It utilises the `jira-ruby` gem to communicate with Jira and get the details of the Jira issue for the given key.\n\n(Currently only supports basic auth_type login)"
       end
 
