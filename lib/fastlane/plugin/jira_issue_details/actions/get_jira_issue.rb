@@ -11,12 +11,7 @@ module Fastlane
         return nil if is_nil_any(input)
 
         client = JIRA::Client.new(options_for_jira_client(input))
-
-        begin
-          return client.Issue.find(input[:issue_key]).attrs
-        rescue
-          return nil
-        end
+        return get_issues_from(client, input)
       end
 
       def self.description
@@ -104,6 +99,23 @@ module Fastlane
           site: "#{input[:site]}:443/",
           rest_base_path: "/rest/api/3"
         }
+      end
+
+      def self.get_issues_from(client, input)
+        issues = []
+        keys = input[:issue_key].split(" ")
+        keys.each {|key| issues.push(fetch_issue(key, client)).reject!(&:nil?) }
+        
+        return issues.first if keys.count == 1
+        return issues
+      end
+
+      def self.fetch_issue(key, client)
+        begin
+          return client.Issue.find(key).attrs
+        rescue
+          return nil
+        end        
       end
     end
   end
