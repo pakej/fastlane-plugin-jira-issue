@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-jira_issue_details'
   spec.version       = Fastlane::JiraIssueDetails::VERSION
   spec.author        = 'Zaim Ramlan'
-  spec.email         = 'zaem.muz@gmail.com'
+  spec.email         = 'zaimramlan@gmail.com'
 
   spec.summary       = 'Get the details for the given jira issue key'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-jira_issue_details"
+  spec.homepage      = "https://github.com/zaimramlan/fastlane-plugin-jira_issue_details"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
