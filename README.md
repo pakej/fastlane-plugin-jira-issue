@@ -1,4 +1,4 @@
-# Jira Issue Details `fastlane` Plugin
+# Jira Issue Details `fastlane` Plugin [![Build Status](https://app.bitrise.io/app/72df6f31dbaba55c/status.svg?token=eNywJtIKO1opSsI9PbEHVQ&branch=develop)](https://app.bitrise.io/app/72df6f31dbaba55c)
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-jira_issue_details)
 
