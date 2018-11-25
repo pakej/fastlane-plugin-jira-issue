@@ -1,0 +1,8 @@
+lane :test do
+  get_jira_issue(
+    username: 'you@domain.com',
+    api_token: 'yourapitoken',
+    site: 'https://domain.atlassian.net',
+    issue_key: 'TCK-123'
+  )
+end
