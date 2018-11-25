@@ -6,32 +6,14 @@ module Fastlane
   module Actions
     class GetJiraIssueAction < Action
       def self.run(params)
-        site = ENV['JIRA_ISSUE_DETAILS_SITE'] 
-        username = ENV['JIRA_ISSUE_DETAILS_USERNAME'] 
-        api_token = ENV['JIRA_ISSUE_DETAILS_API_TOKEN']
-        issue_key = ENV['JIRA_ISSUE_DETAILS_ISSUE_KEY']
+        input = get_input_from_env
+        input = get_input_from(params) if is_exists?(params)
+        return nil if is_nil_any(input)
 
-        if params && params[:site] && params[:username] && params[:api_token] && params[:issue_key]
-          site = params[:site]
-          username = params[:username]
-          api_token = params[:api_token]
-          issue_key = params[:issue_key]
-        end
-
-        return nil if site.nil? && username.nil? && api_token.nil? && issue_key.nil?
-
-        options = {
-          username: username,
-          password: api_token,
-          context_path: "",
-          auth_type: :basic,
-          site: "#{site}:443/",
-          rest_base_path: "/rest/api/3"
-        }
-        client = JIRA::Client.new(options)
+        client = JIRA::Client.new(options_for_jira_client(input))
 
         begin
-          return client.Issue.find(issue_key).attrs
+          return client.Issue.find(input[:issue_key]).attrs
         rescue
           return nil
         end
@@ -83,6 +65,45 @@ module Fastlane
 
       def self.is_supported?(platform)
         true
+      end
+
+      private 
+
+      def self.get_input_from_env
+        {
+          site: ENV['JIRA_ISSUE_DETAILS_SITE'],
+          username: ENV['JIRA_ISSUE_DETAILS_USERNAME'],
+          api_token: ENV['JIRA_ISSUE_DETAILS_API_TOKEN'],
+          issue_key: ENV['JIRA_ISSUE_DETAILS_ISSUE_KEY']
+        }
+      end
+
+      def self.is_exists?(params)
+        params && params[:site] && params[:username] && params[:api_token] && params[:issue_key]        
+      end
+
+      def self.get_input_from(params)
+        {
+          site: params[:site],
+          username: params[:username],
+          api_token: params[:api_token],
+          issue_key: params[:issue_key]
+        }
+      end
+
+      def self.is_nil_any(input)
+        input[:site].nil? || input[:username].nil? || input[:api_token].nil? || input[:issue_key].nil?
+      end
+
+      def self.options_for_jira_client(input)
+        {
+          username: input[:username],
+          password: input[:api_token],
+          context_path: "",
+          auth_type: :basic,
+          site: "#{input[:site]}:443/",
+          rest_base_path: "/rest/api/3"
+        }
       end
     end
   end
