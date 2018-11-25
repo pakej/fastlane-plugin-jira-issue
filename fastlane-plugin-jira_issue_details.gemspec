@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'zaimramlan@gmail.com'
 
   spec.summary       = 'Get the details for the given jira issue key'
-  spec.homepage      = "https://github.com/zaimramlan/fastlane-plugin-jira_issue_details"
+  spec.homepage      = "https://github.com/zaimramlan/fastlane-plugin-jira-issue"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
