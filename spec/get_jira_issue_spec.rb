@@ -24,31 +24,27 @@ describe Fastlane::Actions::GetJiraIssueAction do
       end
 
       context 'with a single jira issue key' do
-        context 'as action parameters' do
-          let(:jira_issue_details) { return {'id' => 'params-123'} }
+        it 'returns a hash containing the details of the given jira issue key in the parameters' do
+          jira_issue_details = {'id' => 'params-123'}
+          stub_url = "#{ENV['JIRA_ISSUE_DETAILS_SITE']}/rest/api/3/issue/#{jira_issue_details['id']}"
+          stub_request(stub_method, stub_url).with(stub_headers).to_return(stub_response)
 
-          it 'returns a hash containing the details of the given jira issue key in the parameters' do
-            stub_request(stub_method, stub_url).with(stub_headers).to_return(stub_response)
+          params = {
+            site: ENV['JIRA_ISSUE_DETAILS_SITE'],
+            username: ENV['JIRA_ISSUE_DETAILS_USERNAME'],
+            api_token: ENV['JIRA_ISSUE_DETAILS_API_TOKEN'],
+            issue_key: jira_issue_details['id']
+          }
+          result = Fastlane::Actions::GetJiraIssueAction.run(params)
 
-            params = {
-              site: ENV['JIRA_ISSUE_DETAILS_SITE'],
-              username: ENV['JIRA_ISSUE_DETAILS_USERNAME'],
-              api_token: ENV['JIRA_ISSUE_DETAILS_API_TOKEN'],
-              issue_key: jira_issue_details['id']
-            }
-            result = Fastlane::Actions::GetJiraIssueAction.run(params)
-
-            expect(result).to eq(jira_issue_details)
-          end
+          expect(result).to eq(jira_issue_details)
         end
 
-        context 'as ENV variables' do
-          it 'returns a hash containing the details of the given jira issue key in the ENV variables' do
-            stub_request(stub_method, stub_url).with(stub_headers).to_return(stub_response)
-            result = Fastlane::Actions::GetJiraIssueAction.run(nil)
-            expect(result).to eq(jira_issue_details)
-          end          
-        end        
+        it 'returns a hash containing the details of the given jira issue key in the ENV variables' do
+          stub_request(stub_method, stub_url).with(stub_headers).to_return(stub_response)
+          result = Fastlane::Actions::GetJiraIssueAction.run(nil)
+          expect(result).to eq(jira_issue_details)
+        end          
       end
 
       context 'with multiple jira issue keys' do
@@ -60,33 +56,29 @@ describe Fastlane::Actions::GetJiraIssueAction do
           ]
         end
 
-        context 'as action parameters' do
-          it 'returns an array of hashes containing the details of the given multiple jira issue keys in the parameters' do
-            stub_request(stub_method, stub_urls[0]).with(stub_headers).to_return(stub_response)
-            stub_request(stub_method, stub_urls[1]).with(stub_headers).to_return(stub_response)
+        it 'returns an array of hashes containing the details of the given multiple jira issue keys in the parameters' do
+          stub_request(stub_method, stub_urls[0]).with(stub_headers).to_return(stub_response)
+          stub_request(stub_method, stub_urls[1]).with(stub_headers).to_return(stub_response)
 
-            params = {
-              site: ENV['JIRA_ISSUE_DETAILS_SITE'],
-              username: ENV['JIRA_ISSUE_DETAILS_USERNAME'],
-              api_token: ENV['JIRA_ISSUE_DETAILS_API_TOKEN'],
-              issue_key: "#{jira_issue_details_array[0]['id']} #{jira_issue_details_array[1]['id']}"
-            }          
-            result = Fastlane::Actions::GetJiraIssueAction.run(params)
+          params = {
+            site: ENV['JIRA_ISSUE_DETAILS_SITE'],
+            username: ENV['JIRA_ISSUE_DETAILS_USERNAME'],
+            api_token: ENV['JIRA_ISSUE_DETAILS_API_TOKEN'],
+            issue_key: "#{jira_issue_details_array[0]['id']} #{jira_issue_details_array[1]['id']}"
+          }          
+          result = Fastlane::Actions::GetJiraIssueAction.run(params)
 
-            expect(result).to eq(jira_issue_details_array)
-          end
+          expect(result).to eq(jira_issue_details_array)
         end
         
-        context 'as ENV variables' do
-          it 'returns an array of hashes containing the details of the given multiple jira issue keys in the parameters' do
-            stub_request(stub_method, stub_urls[0]).with(stub_headers).to_return(stub_response)
-            stub_request(stub_method, stub_urls[1]).with(stub_headers).to_return(stub_response)
-            ENV['JIRA_ISSUE_DETAILS_ISSUE_KEY'] = "#{jira_issue_details_array[0]['id']} #{jira_issue_details_array[1]['id']}"
+        it 'returns an array of hashes containing the details of the given multiple jira issue keys in the parameters' do
+          stub_request(stub_method, stub_urls[0]).with(stub_headers).to_return(stub_response)
+          stub_request(stub_method, stub_urls[1]).with(stub_headers).to_return(stub_response)
+          ENV['JIRA_ISSUE_DETAILS_ISSUE_KEY'] = "#{jira_issue_details_array[0]['id']} #{jira_issue_details_array[1]['id']}"
 
-            result = Fastlane::Actions::GetJiraIssueAction.run(nil)
-            expect(result).to eq(jira_issue_details_array)
-          end          
-        end
+          result = Fastlane::Actions::GetJiraIssueAction.run(nil)
+          expect(result).to eq(jira_issue_details_array)
+        end          
       end
     end
 
