@@ -1,4 +1,4 @@
-# Jira Issue Details `fastlane` Plugin
+# Jira Issue Details `fastlane` Plugin [![Build Status](https://app.bitrise.io/app/72df6f31dbaba55c/status.svg?token=eNywJtIKO1opSsI9PbEHVQ&branch=develop)](https://app.bitrise.io/app/72df6f31dbaba55c)
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-jira_issue_details)
 
@@ -39,19 +39,6 @@ puts summary
 ```
 
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
-
-## Run tests for this plugin
-
-To run both the tests, and code style validation, run
-
-```
-rake
-```
-
-To automatically fix many of the styling issues, use
-```
-rubocop -a
-```
 
 ## Issues and Feedback
 
