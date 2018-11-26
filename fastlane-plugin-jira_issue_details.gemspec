@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.author        = 'Zaim Ramlan'
   spec.email         = 'zaimramlan@gmail.com'
 
-  spec.summary       = 'Get the details for the given jira issue key'
+  spec.summary       = 'Get the details for the given jira issue key(s)'
   spec.homepage      = "https://github.com/zaimramlan/fastlane-plugin-jira-issue"
   spec.license       = "MIT"
 
