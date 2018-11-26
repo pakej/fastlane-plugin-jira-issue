@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.author        = 'Zaim Ramlan'
   spec.email         = 'zaimramlan@gmail.com'
 
-  spec.summary       = 'Get the details for the given jira issue key'
+  spec.summary       = 'Get the details for the given jira issue key(s)'
   spec.homepage      = "https://github.com/zaimramlan/fastlane-plugin-jira-issue"
   spec.license       = "MIT"
 
@@ -21,8 +21,6 @@ Gem::Specification.new do |spec|
   # Don't add a dependency to fastlane or fastlane_re
   # since this would cause a circular dependency
 
-  # spec.add_dependency 'your-dependency', '~> 1.0.0'
-
   spec.add_development_dependency('pry')
   spec.add_development_dependency('bundler')
   spec.add_development_dependency('rspec')
@@ -32,4 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rubocop-require_tools')
   spec.add_development_dependency('simplecov')
   spec.add_development_dependency('fastlane', '>= 2.108.0')
+  spec.add_development_dependency('jira-ruby', '1.6.0')
+  spec.add_development_dependency('webmock', '3.4.2')
 end
