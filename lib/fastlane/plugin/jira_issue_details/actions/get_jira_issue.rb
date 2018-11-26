@@ -23,14 +23,14 @@ module Fastlane
       end
 
       def self.return_value
-        single_key = "Return a `Hash` containing the details of the jira issue for the given key, or `nil` if the issue key does not exists."
-        multiple_key = "Return a `Hash` of `key-Hash` pairs containing the details of the jira issue key, or `key-nil` pair if the issue key does not exists."
+        single_key = "it returns a `Hash` containing the details of the jira issue for the given key, or `nil` if the issue key does not exists."
+        multiple_key = "it returns a `Hash` of `key-Hash` pairs containing the details of the jira issue key, or `key-nil` pair if the issue key does not exists."
 
-        "For single jira issue key,\n\n#{single_key}\n\nFor multiple jira issue keys,\n\n#{multiple_key}"
+        "For single jira issue key, #{single_key} For multiple jira issue keys, #{multiple_key}"
       end
 
       def self.details
-        "It utilises the `jira-ruby` gem to communicate with Jira and get the details of the Jira issue for the given key.\n\n(Currently only supports basic auth_type login)"
+        "It utilises the `jira-ruby` gem to communicate with Jira and get the details of the Jira issue for the given key.\n\n(Currently only supports basic auth_type login)."
       end
 
       def self.available_options
@@ -55,7 +55,7 @@ module Fastlane
 
           FastlaneCore::ConfigItem.new(key: :issue_key,
                                   env_name: "JIRA_ISSUE_DETAILS_ISSUE_KEY",
-                               description: "Your Jira Issue Key",
+                               description: "Your Jira Issue Key(s). Separate with a single space ` ` to add more keys",
                                   optional: false,
                                       type: String)
         ]
