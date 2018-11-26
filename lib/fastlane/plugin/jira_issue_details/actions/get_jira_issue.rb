@@ -15,7 +15,7 @@ module Fastlane
       end
 
       def self.description
-        "Get the details for the given jira issue key."
+        "Get the details for the given jira issue key(s)."
       end
 
       def self.authors
@@ -23,7 +23,10 @@ module Fastlane
       end
 
       def self.return_value
-        "Return a `Hash` containing the details of the jira issue for the given key, or `nil` if the issue key does not exists."
+        single_key = "Return a `Hash` containing the details of the jira issue for the given key, or `nil` if the issue key does not exists."
+        multiple_key = "Return a `Hash` of `key-Hash` pairs containing the details of the jira issue key, or `key-nil` pair if the issue key does not exists."
+
+        "For single jira issue key,\n\n#{single_key}\n\nFor multiple jira issue keys,\n\n#{multiple_key}"
       end
 
       def self.details
