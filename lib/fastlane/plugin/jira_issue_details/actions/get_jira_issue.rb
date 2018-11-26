@@ -102,11 +102,11 @@ module Fastlane
       end
 
       def self.get_issues_from(client, input)
-        issues = []
+        issues = {}
         keys = input[:issue_key].split(" ")
-        keys.each {|key| issues.push(fetch_issue(key, client)).reject!(&:nil?) }
+        keys.each {|key| issues[key] = fetch_issue(key, client) }
         
-        return issues.first if keys.count == 1
+        return issues[keys.first] if keys.count == 1
         return issues
       end
 
