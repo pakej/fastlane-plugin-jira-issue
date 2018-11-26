@@ -26,7 +26,10 @@ Get the jira issue by passing the `username`, `api_token`, `site` and `issue_key
 
 Do note that all parameters are required, otherwise the action will return `nil`.
 
-1. Passing a single jira issue key
+1. Passing a single jira `issue_key`
+    
+    In return, you'll get a single hash, or `nil` if the issue for the given key was not found.
+
     ```ruby
     issue = get_jira_issue(
       username: 'you@domain.com',
@@ -37,10 +40,13 @@ Do note that all parameters are required, otherwise the action will return `nil`
 
     summary = issue['fields']['summary']
     puts summary
-    #=> Short summary for the ticket id: TKT-123.
+    #=> Short summary for the ticket id TKT-123
     ```
 
-1. Passing multiple jira issue keys (Do note that you **must only** separate the keys using a single space ` `)
+1. Passing multiple jira `issue_key`s (Do note that you should **only** separate the keys using a single space ` `)
+
+    In return, you'll get a hash of `key-hash` pair, or `key-nil` pair if the issue was not found.
+
     ```ruby
     issue = get_jira_issue(
       username: 'you@domain.com',
@@ -49,13 +55,14 @@ Do note that all parameters are required, otherwise the action will return `nil`
       issue_key: 'TKT-123 TKT-456'
     )
 
-    summary = issue[0]['fields']['summary']
+    summary = issue['TKT-123']['fields']['summary']
     puts summary
-    #=> Short summary for the ticket id: TKT-123.
+    #=> Short summary for the ticket id: TKT-123
 
-    summary = issue[1]['fields']['summary']
+    # assuming TKT-456 doesn't exist
+    summary = issue['TKT-456']
     puts summary
-    #=> Short summary for the ticket id: TKT-456.    
+    #=> nil
     ```    
 
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
