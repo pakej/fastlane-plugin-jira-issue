@@ -20,6 +20,9 @@ Gem::Specification.new do |spec|
 
   # Don't add a dependency to fastlane or fastlane_re
   # since this would cause a circular dependency
+  
+  spec.add_runtime_dependency('jira-ruby', '>= 1.6.0')
+  spec.add_runtime_dependency('webmock', '>= 3.4.2')
 
   spec.add_development_dependency('pry')
   spec.add_development_dependency('bundler')
@@ -30,6 +33,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rubocop-require_tools')
   spec.add_development_dependency('simplecov')
   spec.add_development_dependency('fastlane', '>= 2.108.0')
-  spec.add_development_dependency('jira-ruby', '1.6.0')
-  spec.add_development_dependency('webmock', '3.4.2')
 end
